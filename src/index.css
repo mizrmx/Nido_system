@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+/*
+  CamingoCode: coloca los .woff2 en /public/fonts/ para activarla.
+  Mientras tanto se usa Fira Code (@fontsource) como respaldo.
+*/
+@font-face {
+  font-family: "CamingoCode";
+  src: url("/fonts/CamingoCode-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "CamingoCode";
+  src: url("/fonts/CamingoCode-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* Tokens — espejo de las variables de Figma (Nido / Color, Nido / Tamaños) */
+@theme {
+  --font-sans: "CamingoCode", "Fira Code", ui-monospace, monospace;
+
+  --color-bg: #FBF7F2;
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #F4EEE7;
+  --color-border: #ECE3D9;
+  --color-ink: #2B2522;
+  --color-ink-muted: #8A7F78;
+  --color-ink-inverse: #FFFFFF;
+  --color-persona-a: #E07A5F;
+  --color-persona-a-soft: #FBE6DF;
+  --color-persona-b: #3D9A8B;
+  --color-persona-b-soft: #DDF0EC;
+  --color-juntas: #E3A73B;
+  --color-juntas-soft: #FBEFD6;
+  --color-success: #5E9E6E;
+  --color-success-soft: #E3F1E6;
+  --color-info: #6C8EBF;
+  --color-info-soft: #E4ECF7;
+  --color-violet: #8E7CC3;
+  --color-violet-soft: #ECE8F6;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  /* Escala tipográfica (Figma: Display, Título, Encabezado, Cuerpo, Etiqueta, Caption) */
+  --text-display: 26px;
+  --text-display--line-height: 32px;
+  --text-titulo: 18px;
+  --text-titulo--line-height: 24px;
+  --text-encabezado: 15px;
+  --text-encabezado--line-height: 21px;
+  --text-cuerpo: 14px;
+  --text-cuerpo--line-height: 21px;
+  --text-etiqueta: 12px;
+  --text-etiqueta--line-height: 17px;
+  --text-caption: 11px;
+  --text-caption--line-height: 15px;
+
+  --shadow-suave: 0 2px 8px rgb(43 37 34 / 0.06), 0 8px 24px rgb(43 37 34 / 0.04);
+  --shadow-flotante: 0 8px 20px rgb(43 37 34 / 0.18);
+}
+
+@layer base {
+  html,
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+  }
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
