@@ -16,7 +16,8 @@ const COMIDA = [
 
 const fecha = new Intl.DateTimeFormat('es-MX', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date())
 
-export default function Inicio() {
+export default function Inicio({ me, partner, online = [], onOpenHousehold }) {
+  const pareja = partner ?? { id: 'pendiente', display_name: '?', color: me?.color === 'persona_b' ? 'persona_a' : 'persona_b' }
   const [habitos, setHabitos] = useState(HABITOS)
   const toggle = (id, who) => setHabitos((hs) => hs.map((h) => (h.id === id ? { ...h, [who]: !h[who] } : h)))
   const total = habitos.reduce((n, h) => n + (h.scope === 'pareja' ? 1 : 2), 0)
@@ -27,12 +28,12 @@ export default function Inicio() {
       <header className="flex items-center justify-between">
         <div>
           <p className="text-etiqueta text-ink-muted first-letter:uppercase">{fecha}</p>
-          <h1 className="text-display font-semibold">Hola, Mayra</h1>
+          <h1 className="text-display font-semibold">Hola, {me?.display_name ?? 'tú'}</h1>
         </div>
-        <div className="flex -space-x-1.5">
-          <Avatar persona="A" />
-          <Avatar persona="B" />
-        </div>
+        <button type="button" onClick={onOpenHousehold} className="flex -space-x-1.5" aria-label="Ver hogar">
+          <Avatar profile={me} online={online.includes(me?.id)} />
+          <Avatar profile={pareja} online={online.includes(pareja.id)} />
+        </button>
       </header>
 
       <div className="grid gap-5 lg:grid-cols-3">
@@ -58,10 +59,10 @@ export default function Inicio() {
                   </>
                 ) : (
                   <>
-                    <Avatar persona="A" />
-                    <Checkbox checked={h.a} onChange={() => toggle(h.id, 'a')} label={`${h.name} Mayra`} />
-                    <Avatar persona="B" />
-                    <Checkbox checked={h.b} onChange={() => toggle(h.id, 'b')} label={`${h.name} pareja`} />
+                    <Avatar profile={me} />
+                    <Checkbox checked={h.a} onChange={() => toggle(h.id, 'a')} label={`${h.name} ${me?.display_name ?? ''}`} />
+                    <Avatar profile={pareja} />
+                    <Checkbox checked={h.b} onChange={() => toggle(h.id, 'b')} label={`${h.name} ${pareja.display_name}`} />
                   </>
                 )}
               </li>
@@ -95,7 +96,7 @@ export default function Inicio() {
               <p className="text-encabezado font-semibold">Cena en La Chocita</p>
               <p className="text-caption text-ink-muted">7:00 pm · Restaurantes</p>
             </div>
-            <Avatar persona="A" />
+            <Avatar profile={me} />
           </div>
         </Card>
       </div>

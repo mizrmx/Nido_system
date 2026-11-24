@@ -6,13 +6,22 @@ const PERSONA = {
   Juntas: { bg: 'bg-juntas', label: 'MP' },
 }
 
-export function Avatar({ persona = 'A', label }) {
-  const p = PERSONA[persona]
+const COLOR_TO_PERSONA = { persona_a: 'A', persona_b: 'B' }
+
+/** Avatar por persona ('A' | 'B' | 'Juntas') o a partir de un perfil de Supabase. */
+export function Avatar({ persona = 'A', label, profile, online }) {
+  const key = profile ? (COLOR_TO_PERSONA[profile.color] ?? 'A') : persona
+  const p = PERSONA[key]
+  const text = label ?? (profile?.display_name ? profile.display_name.trim().charAt(0).toUpperCase() : p.label)
   return (
-    <span
-      className={`${p.bg} inline-grid size-7 shrink-0 place-items-center rounded-full text-[10px] font-bold text-ink-inverse ring-2 ring-surface`}
-    >
-      {label ?? p.label}
+    <span className="relative inline-grid shrink-0">
+      <span
+        title={profile?.display_name}
+        className={`${p.bg} inline-grid size-7 place-items-center rounded-full text-[10px] font-bold text-ink-inverse ring-2 ring-surface`}
+      >
+        {text}
+      </span>
+      {online && <span className="absolute -right-0.5 -bottom-0.5 z-10 size-2.5 rounded-full bg-success ring-2 ring-surface" aria-label="En línea" />}
     </span>
   )
 }
