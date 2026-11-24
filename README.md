@@ -10,13 +10,13 @@ Web app colaborativa en tiempo real para pareja: planes, viajes, comida y hábit
 
 ```bash
 npm install
-cp .env.example .env.local   # pon tu URL y anon key de Supabase
+cp .env.example .env.local   # pon tu URL y publishable key de Supabase
 npm run dev
 ```
 
 ## Base de datos y login
 
-1. Crea un proyecto en [supabase.com](https://supabase.com) y copia **Project URL** y **anon key** a `.env.local`.
+1. Crea un proyecto en [supabase.com](https://supabase.com) y copia **Project URL** y la **publishable key** (`sb_publishable_…`) a `.env.local`.
 2. Aplica las migraciones:
    ```bash
    npx supabase link --project-ref <tu-proyecto>
@@ -60,4 +60,4 @@ Commits: `feat:`, `fix:`, `chore:`, `docs:`, `style:`, `refactor:`.
 
 ## Deploy (Netlify)
 
-Build `npm run build` · carpeta `dist` · variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`.
+Build `npm run build` · carpeta `dist` · variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_PUBLISHABLE_KEY`.
