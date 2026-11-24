@@ -4,7 +4,7 @@ import { Avatar, Button, Tag } from '../../components/ui.jsx'
 const CATEGORIAS = ['Plan', 'Viaje', 'Comida', 'Súper', 'Hábito']
 
 // Captura rápida: solo el título es obligatorio. Sin categoría → bandeja "Por ordenar".
-export default function QuickAdd({ onClose, onSave }) {
+export default function QuickAdd({ onClose, onSave, me }) {
   const [title, setTitle] = useState('')
   const [cat, setCat] = useState(null)
 
@@ -26,7 +26,7 @@ export default function QuickAdd({ onClose, onSave }) {
         <div className="flex items-center justify-between">
           <h2 className="text-titulo font-semibold">Captura rápida</h2>
           <span className="flex items-center gap-1.5 text-caption text-ink-muted">
-            como <Avatar persona="A" />
+            como <Avatar profile={me} />
           </span>
         </div>
         <input
